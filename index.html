@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio Kedada Musiical</title>
+  <style>
+    body {
+      margin: 0;
+      background: url('https://i.postimg.cc/kXC13Szp/LOGO-ICRO-VIVO2.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center; /* Centra horizontalmente */
+      align-items: flex-start; /* Alinea los elementos al inicio (arriba) */
+      height: 100vh;
+      padding-top: 2vh; /* Añade un poco de espacio desde la parte superior, adaptable al alto de la pantalla */
+    }
+
+    .player-container {
+      /* Fondo gris semi-transparente */
+      background-color: rgba(128, 128, 128, 0.5); /* Gris semi-transparente */
+      padding: 8px; /* Reducido aún más el padding */
+      border-radius: 8px; /* Reducido el radio del borde */
+      text-align: center;
+      box-shadow: 0 0 4px black; /* Sombra más pequeña */
+      width: 80%; /* Ocupa el 80% del ancho en pantallas pequeñas */
+      max-width: 200px; /* Ancho máximo para pantallas grandes, reducido */
+      box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
+    }
+
+    /* Oculta los controles nativos del audio */
+    audio {
+      display: none;
+    }
+
+    /* Estilos para el botón de control personalizado */
+    .custom-controls {
+      display: flex; /* Usa flexbox para alinear los controles */
+      flex-direction: column; /* Apila los elementos verticalmente */
+      align-items: center; /* Centra los elementos horizontalmente */
+      gap: 6px; /* Espacio entre los elementos reducido */
+      margin-top: 8px; /* Espacio superior para los controles reducido */
+    }
+
+    .custom-controls button {
+      background-color: #0000FF; /* Color azul para el botón */
+      color: white;
+      border: none;
+      padding: 0.5em 1em; /* Padding en unidades em para mejor adaptabilidad */
+      border-radius: 4px; /* Radio del borde adaptable */
+      cursor: pointer;
+      font-size: 0.8em; /* Tamaño de fuente reducido */
+      transition: background-color 0.3s ease;
+      width: 80px; /* Ancho fijo para el botón reducido */
+    }
+
+    .custom-controls button:hover {
+      background-color: #0000CC; /* Azul un poco más oscuro al pasar el ratón */
+    }
+
+    /* Estilos para el deslizador de volumen */
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 4px; /* Espacio adaptable reducido */
+      width: 95%; /* Ancho del control de volumen adaptable */
+      max-width: 150px; /* Ancho máximo para el control de volumen reducido */
+    }
+
+    .volume-control label {
+      color: white; /* Color del texto de la etiqueta */
+      font-size: 0.65em; /* Tamaño de fuente reducido */
+      white-space: nowrap; /* Evita que el texto "Volumen:" se rompa en varias líneas */
+    }
+
+    .volume-control input[type="range"] {
+      -webkit-appearance: none; /* Elimina estilos predeterminados de WebKit */
+      width: 100%;
+      height: 3px; /* Altura de la barra reducida */
+      background: #ddd; /* Color del fondo de la barra */
+      border-radius: 1.5px; /* Radio del borde reducido */
+      outline: none;
+      opacity: 0.7;
+      transition: opacity .2s;
+    }
+
+    .volume-control input[type="range"]:hover {
+      opacity: 1;
+    }
+
+    .volume-control input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px; /* Tamaño del "pulgar" reducido */
+      height: 12px; /* Tamaño del "pulgar" reducido */
+      background: #0000FF; /* Color azul del "pulgar" del deslizador */
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .volume-control input[type="range"]::-moz-range-thumb {
+      width: 12px; /* Tamaño del "pulgar" reducido */
+      height: 12px; /* Tamaño del "pulgar" reducido */
+      background: #0000FF; /* Color azul del "pulgar" del deslizador */
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio Kedada Musiical</title>
+  <style>
+    body {
+      margin: 0;
+      /* Un color de fondo oscuro por defecto para el cuerpo de la página */
+      background: #333;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center; /* Centra horizontalmente el contenedor del reproductor */
+      align-items: flex-start; /* Alinea el contenedor del reproductor al inicio (arriba) */
+      height: 100vh;
+      padding-top: 4vh; /* Espacio desde la parte superior, ajustado para un diseño más compacto */
+    }
+
+    .player-container {
+      /* Fondo con la imagen proporcionada por el usuario */
+      background-image: url('https://i.postimg.cc/Z5CHz0br/KDDMISUCAL-BUEBO.png'); /* URL de la imagen de fondo */
+      background-size: contain; /* ¡Cambiado a 'contain' para que la imagen no se corte! */
+      background-position: center; /* Centra la imagen dentro del contenedor */
+      background-repeat: no-repeat; /* Evita que la imagen se repita */
+      padding: 12px; /* Padding ajustado para un diseño más compacto */
+      border-radius: 10px; /* Radio del borde ajustado */
+      text-align: center;
+      box-shadow: 0 0 6px black; /* Sombra ligeramente más pequeña */
+      width: 85%; /* Ocupa el 85% del ancho en pantallas pequeñas */
+      max-width: 300px; /* Ancho máximo para el reproductor, ajustado para ser más compacto */
+      min-height: 180px; /* Altura mínima ajustada para la proporción de la imagen */
+      display: flex; /* Usar flexbox para organizar el contenido interno */
+      flex-direction: column; /* Apilar elementos verticalmente */
+      justify-content: space-between; /* Espaciar el contenido (botón arriba, volumen abajo) */
+      align-items: center; /* Centrar horizontalmente el contenido */
+      box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
+      /* Para asegurar que el texto sea visible sobre la imagen */
+      color: white;
+    }
+
+    /* Oculta los controles nativos del audio */
+    audio {
+      display: none;
+    }
+
+    /* Estilos para el botón de control personalizado */
+    .custom-controls {
+      display: flex; /* Usa flexbox para alinear los controles */
+      flex-direction: column; /* Apila los elementos verticalmente */
+      align-items: center; /* Centra los elementos horizontalmente */
+      gap: 8px; /* Espacio entre los elementos ajustado */
+      margin-top: auto; /* Empuja los controles hacia abajo dentro del contenedor */
+      width: 100%; /* Ocupa todo el ancho disponible */
+    }
+
+    .custom-controls button {
+      background-color: #0000FF; /* Color azul para el botón */
+      color: white;
+      border: none;
+      padding: 0.7em 1.4em; /* Padding en unidades em para mejor adaptabilidad */
+      border-radius: 5px; /* Radio del borde adaptable */
+      cursor: pointer;
+      font-size: 0.9em; /* Tamaño de fuente ajustado */
+      transition: background-color 0.3s ease;
+      width: 100px; /* Ancho fijo para el botón ajustado */
+    }
+
+    .custom-controls button:hover {
+      background-color: #0000CC; /* Azul un poco más oscuro al pasar el ratón */
+    }
+
+    /* Contenedor para el control de volumen con fondo */
+    .volume-controls-wrapper {
+        background-color: rgba(128, 128, 128, 0.9); /* Gris con 90% de opacidad */
+        padding: 8px 12px; /* Padding ajustado para el cuadrado */
+        border-radius: 6px; /* Bordes redondeados ajustados */
+        width: 90%; /* Ancho del cuadrado, adaptable */
+        max-width: 250px; /* Ancho máximo del cuadrado ajustado */
+        box-sizing: border-box; /* Incluir padding en el ancho */
+        margin-top: 8px; /* Espacio entre el botón y el control de volumen ajustado */
+    }
+
+    /* Estilos para el deslizador de volumen */
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 6px; /* Espacio adaptable ajustado */
+      width: 100%; /* Ocupa todo el ancho de su contenedor (.volume-controls-wrapper) */
+    }
+
+    .volume-control label {
+      color: #FFD700; /* Amarillo fuerte (Gold) para que destaque */
+      font-size: 0.75em; /* Tamaño de fuente ajustado */
+      white-space: nowrap; /* Evita que el texto "Volumen:" se rompa en varias líneas */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Sombra de texto para mayor contraste */
+    }
+
+    .volume-control input[type="range"] {
+      -webkit-appearance: none; /* Elimina estilos predeterminados de WebKit */
+      width: 100%;
+      height: 4px; /* Altura de la barra ajustada */
+      background: #ddd; /* Color del fondo de la barra */
+      border-radius: 2px; /* Radio del borde ajustado */
+      outline: none;
+      opacity: 0.7;
+      transition: opacity .2s;
+    }
+
+    .volume-control input[type="range"]:hover {
+      opacity: 1;
+    }
+
+    .volume-control input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px; /* Tamaño del "pulgar" ajustado */
+      height: 14px; /* Tamaño del "pulgar" ajustado */
+      background: #0000FF; /* Color azul del "pulgar" del deslizador */
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .volume-control input[type="range"]::-moz-range-thumb {
+      width: 14px; /* Tamaño del "pulgar" ajustado */
+      height: 14px; /* Tamaño del "pulgar" ajustado */
+      background: #0000FF; /* Color azul del "pulgar" del deslizador */
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="player-container">
+    <!-- El elemento de audio sin controles nativos -->
+    <audio id="radioAudio">
+      <source src="https://uk14freenew.listen2myradio.com/live.mp3?typeportmount=s1_8461_stream_691310980" type="audio/mpeg">
+      Tu navegador no soporta audio HTML5.
+    </audio>
+
+    <!-- Controles personalizados -->
+    <div class="custom-controls">
+      <button id="playPauseButton">Reproducir</button>
+      <!-- Nuevo contenedor para el control de volumen con fondo -->
+      <div class="volume-controls-wrapper">
+        <div class="volume-control">
+          <label for="volumeSlider">Volumen:</label>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const radioAudio = document.getElementById('radioAudio');
+    const playPauseButton = document.getElementById('playPauseButton');
+    const volumeSlider = document.getElementById('volumeSlider');
+
+    // Establecer el volumen inicial del audio al valor del deslizador
+    radioAudio.volume = volumeSlider.value;
+
+    playPauseButton.addEventListener('click', () => {
+      if (radioAudio.paused) {
+        radioAudio.play();
+        playPauseButton.textContent = 'Pausar';
+      } else {
+        radioAudio.pause();
+        playPauseButton.textContent = 'Reproducir';
+      }
+    });
+
+    // Escuchar cambios en el deslizador de volumen
+    volumeSlider.addEventListener('input', () => {
+      radioAudio.volume = volumeSlider.value;
+    });
+
+    // Opcional: Actualizar el botón si el audio termina o se detiene por otras razones
+    radioAudio.addEventListener('ended', () => {
+      playPauseButton.textContent = 'Reproducir';
+    });
+    radioAudio.addEventListener('pause', () => {
+      if (!radioAudio.ended) { // Solo si no terminó la reproducción
+        playPauseButton.textContent = 'Reproducir';
+      }
+    });
+  </script>
+</body>
+</html>
